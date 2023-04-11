@@ -60,8 +60,12 @@ export const Front = ({
                 />
                 <Spacer />
                 <Heading
-                    fontSize={["1.2rem", "2rem"]}
+                    whiteSpace="nowrap"
+                    fontSize={["1.1rem", "1.8rem"]}
                     fontFamily="Space Grotesk"
+                    style={{
+                        marginBottom: 14
+                    }}
                 >{convertDigit(cardNumber)}</Heading>
                 <HStack
                     width="full"
