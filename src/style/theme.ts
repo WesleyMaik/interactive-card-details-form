@@ -15,7 +15,8 @@ const breakpoints: Theme['breakpoints'] = {
 };
 
 const colors = {
-    primary: "#21092F"
+    primary: "#21092F",
+    "primary-hover": "#461761"
 };
 
 export const theme = extendTheme({
