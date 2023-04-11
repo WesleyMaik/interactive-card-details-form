@@ -12,9 +12,14 @@ const breakpoints: Theme['breakpoints'] = {
     xl: '1536px',
     '2xl': '3072px',
     base: "lg"
-}
+};
+
+const colors = {
+    primary: "#21092F"
+};
 
 export const theme = extendTheme({
     breakpoints,
-    config
+    config,
+    colors
 });
