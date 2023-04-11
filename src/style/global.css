@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  line-height: 1em;
 }
 
 html,
@@ -7,4 +8,5 @@ body,
 #root {
   margin: 0;
   height: 100%;
+  letter-spacing: 0.125em;
 }
