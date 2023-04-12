@@ -2,15 +2,31 @@ import { Stack } from "@chakra-ui/react";
 
 import { Back, type BackProps } from "./Back";
 import { Front, type FrontProps } from "./Front";
+import { forwardRef, useImperativeHandle, useState } from "react";
+import { CardFormSchema } from "../Forms/CardForm";
 
-export type CardProps = BackProps & FrontProps;
+export type CardProps = Partial<BackProps & FrontProps>;
+export interface CardRef {
+    handleSetData: (data:CardFormSchema) => void
+};
 
-export const Card = ({
-    cardNumber,
-    cvv,
-    date,
-    name
-}: CardProps) => {
+export const Card = forwardRef<CardRef, CardProps>((props, ref) => {
+    const [data, setData] = useState<CardFormSchema>({
+        cvc: "000",
+        date: {
+            month: "00",
+            year: "00"
+        },
+        name: "Jane Appleseed",
+        number: "0000000000000000"
+    });
+
+    const {cvc, date, name, number} = data;
+
+    useImperativeHandle(ref, () => ({
+        handleSetData: setData
+    }));
+
     return (
         <Stack
             id="card"
@@ -21,13 +37,13 @@ export const Card = ({
             spacing={10}
         >
             <Back
-                cvv={cvv}
+                cvc={cvc}
                 style={{
                     marginLeft: "auto"
                 }}
             />
             <Front
-                cardNumber={cardNumber}
+                number={number}
                 name={name}
                 date={date}
                 transform={[
@@ -40,7 +56,7 @@ export const Card = ({
             />
         </Stack>
     );
-};
+});
 
 export { Back, type BackProps } from "./Back";
 export { Front, type FrontProps } from "./Front";
