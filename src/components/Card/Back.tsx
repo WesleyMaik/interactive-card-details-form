@@ -2,11 +2,11 @@ import { Stack, type StackProps, Text, Image } from "@chakra-ui/react";
 import { backCard } from "@/utils/constants";
 
 export interface BackProps extends StackProps {
-    cvv: string
+    cvc: string
 };
 
 export const Back = ({
-    cvv = "000",
+    cvc,
     ...props
 }: BackProps) => {
     return (
@@ -36,7 +36,7 @@ export const Back = ({
                     fontWeight="bold"
                     fontFamily="Space Grotesk"
                     marginTop={-5}
-                >{cvv}</Text>
+                >{cvc || "000"}</Text>
             </Stack>
         </Stack>
     );
