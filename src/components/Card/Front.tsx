@@ -10,7 +10,7 @@ import {
 import { frontCard, brand } from "@/utils/constants";
 
 export interface FrontProps extends StackProps {
-    cardNumber: string,
+    number: string,
     name: string,
     date: Date
 };
@@ -21,18 +21,11 @@ type Date = {
 };
 
 export const Front = ({
-    cardNumber = "0000000000000000",
+    number,
     date: { month = "00", year = "00" },
-    name = "jane appleseed",
+    name,
     ...props
 }: FrontProps) => {
-    const convertDigit = (valueAsString: string) => {
-        return valueAsString
-            .substring(0, 16)
-            .split(/(\d{4})/)
-            .join(" ");
-    };
-
     return (
         <Stack
             width="fit-content"
@@ -66,7 +59,7 @@ export const Front = ({
                     style={{
                         marginBottom: 14
                     }}
-                >{convertDigit(cardNumber)}</Heading>
+                >{number || "0000 0000 0000 0000"}</Heading>
                 <HStack
                     width="full"
                     alignItems="center"
@@ -75,12 +68,12 @@ export const Front = ({
                 >
                     <Text
                         fontFamily="Space Grotesk"
-                    >{name}</Text>
+                    >{name || "jane appleseed"}</Text>
                     <Spacer />
                     <Text
                         fontFamily="Space Grotesk"
-                    >{month}/{year}</Text>
-                </HStack>
+                    >{month || "00"}/{year || "00"}</Text>
+                </HStack> 
             </Stack>
         </Stack>
     );
