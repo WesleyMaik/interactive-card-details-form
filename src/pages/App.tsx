@@ -1,12 +1,19 @@
 //Modules
+import { useRef } from "react";
 import { background, backgroundMobile } from "@/utils/constants";
 
 //Components
-import { Stack, Text } from "@chakra-ui/react";
-import { Card } from "@/components/Card";
-import { CardForm } from "@/components/Forms/CardForm";
+import { Stack } from "@chakra-ui/react";
+import { Card, CardRef } from "@/components/Card";
+import { CardForm, CardFormSchema } from "@/components/Forms/CardForm";
+
 
 export default function App() {
+  const cardRef = useRef<CardRef>(null);
+  const handleSetData = (data:CardFormSchema) => {
+    cardRef.current?.handleSetData(data)
+  };
+
   return (
     <Stack
       direction={["column", "row"]}
@@ -28,16 +35,11 @@ export default function App() {
       spacing={["0", "32"]}
     >
       <Card
-        name="Jane Appleseed"
-        cardNumber="0000000000000000"
-        cvv="000"
-        date={{
-          month: "00",
-          year: "00"
-        }}
+        ref={cardRef}
       />
       <CardForm
         maxWidth="380"
+        onChangeData={handleSetData}
       />
     </Stack>
   );
