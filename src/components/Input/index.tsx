@@ -1,3 +1,5 @@
+import { ReactNode, forwardRef } from "react";
+
 import {
     Input as DefaultInput,
     InputProps as DefaultInputProps,
@@ -9,18 +11,30 @@ import {
     InputRightElement,
     InputGroup
 } from "@chakra-ui/react";
-import { ReactNode, forwardRef } from "react";
+import { PatternFormat } from "react-number-format";
 
 export interface InputProps extends DefaultInputProps {
     label?: string,
     helper?: string,
     error?: string,
     inputLeftElement?: ReactNode,
-    inputRightElement?: ReactNode
+    inputRightElement?: ReactNode,
+    hiddenErrorMessage?:boolean
+    format?:string
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>((
-    { label, helper, error, inputLeftElement, inputRightElement, isRequired, ...props }, ref
+    { 
+        label, 
+        helper, 
+        error, 
+        inputLeftElement, 
+        inputRightElement, 
+        isRequired, 
+        hiddenErrorMessage, 
+        format,
+        ...props 
+    }, ref
 ) => {
     return (
         <FormControl
@@ -38,7 +52,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((
                     <InputLeftElement>{inputLeftElement}</InputLeftElement>
                 )}
                 <DefaultInput
+                    as={format ? PatternFormat : 'input'}
+                    format={format}
                     ref={ref}
+                    getInputRef={ref}
                     fontFamily="Space Grotesk"
                     size="lg"
                     fontWeight={500}
@@ -54,7 +71,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>((
             {!!helper && (
                 <FormHelperText>{helper}</FormHelperText>
             )}
-            {!!error && (
+            {(!!error && !hiddenErrorMessage) && (
                 <FormErrorMessage>{error}</FormErrorMessage>
             )}
         </FormControl>
